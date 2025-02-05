@@ -1,12 +1,12 @@
 import { Migration, sql } from "kysely";
 
-export const Migration20250202: Migration = {
+export const Migration20250205: Migration = {
   async up(db) {
     const yearSchema = db.schema
       .createTable("snbt_year")
       .ifNotExists()
       .addColumn("id", "integer", (col) => col.notNull().primaryKey().autoIncrement())
-      .addColumn("year", "integer", (col) => col.notNull().unique())
+      .addColumn("year", "integer", (col) => col.notNull())
       .addColumn("dumped_at", "timestamp", (col) => col.defaultTo(sql`CURRENT_TIMESTAMP`));
 
     const dataSchema = db.schema

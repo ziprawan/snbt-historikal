@@ -1,19 +1,20 @@
 import { Migration, sql } from "kysely";
 
-export const Migration20250202: Migration = {
+export const Migration20250205Refs: Migration = {
   async up(db) {
     const yearSchema = db.schema
       .createTable("snbt_year")
       .ifNotExists()
       .addColumn("id", "integer", (col) => col.notNull().primaryKey().autoIncrement())
-      .addColumn("year", "integer", (col) => col.notNull().unique())
+      .addColumn("year", "integer", (col) => col.notNull())
       .addColumn("dumped_at", "timestamp", (col) => col.defaultTo(sql`CURRENT_TIMESTAMP`));
 
     const dataSchema = db.schema
       .createTable("snbt_data")
       .ifNotExists()
       .addColumn("id", "integer", (col) => col.notNull().primaryKey().autoIncrement())
-      .addColumn("snbt_year", "integer", (col) => col.notNull())
+      .addColumn('snbt_year', 'integer', (col) => col.notNull())
+      .addColumn("snbt_year_ref", "integer", (col) => col.notNull().references('snbt_year.id'))
       .addColumn("utbk_number", sql`TEXT COLLATE NOCASE NOT NULL UNIQUE`)
       .addColumn("name", "text", (col) => col.notNull())
       .addColumn("date_of_birth", "text", (col) => col.notNull())

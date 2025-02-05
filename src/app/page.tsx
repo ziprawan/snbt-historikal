@@ -30,7 +30,7 @@ export default function Home() {
       <div className="flex justify-center mb-4">
         <img src="/snpmb-logo.png" alt="SNPMPB Logo" className="h-16" />
       </div>
-      <div className="w-full max-w-md bg-white px-16 pt-6 pb-20 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+      <div className="w-full max-w-md bg-white px-16 pt-6 pb-20 shadow-[0_0_20px_rgba(0,0,0,0.5)] rounded-md">
         <div className="text-4xl font-semibold">Tahun Historikal</div>
         <div className="text-justify my-4">Silahkan klik data tahun yang tersedia di bawah ini</div>
 

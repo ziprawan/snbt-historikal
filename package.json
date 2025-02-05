@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/kysely-libsql": "^0.4.1",
     "better-sqlite3": "^11.8.1",
     "kysely": "^0.27.5",
-    "kysely-sqlite-worker": "^1.0.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bun": "^1.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
