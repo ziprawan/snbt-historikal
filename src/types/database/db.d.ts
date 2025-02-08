@@ -15,6 +15,7 @@ export type DB = {
   snbt_data: {
     id: Generated<number>;
     snbt_year: number;
+    snbt_year_ref: Generated<number>;
     utbk_number: string;
     name: string;
     date_of_birth: string;

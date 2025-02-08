@@ -7,6 +7,7 @@ const querySchema = z.object({
   name: z.string().min(3),
   snbt_year: z.coerce.number().min(2000).max(3000),
   birth: z.string().regex(/\d*/, "Received string cannot be converted to a number").length(8),
+  snbt_year_refid: z.coerce.number().min(1),
 });
 
 export async function GET(req: NextRequest) {
@@ -14,7 +15,8 @@ export async function GET(req: NextRequest) {
     const name = new URL(req.url).searchParams.get("name");
     const birth = new URL(req.url).searchParams.get("birth");
     const snbt_year = new URL(req.url).searchParams.get("snbt_year");
-    const checkResult = querySchema.safeParse({ name, birth, snbt_year });
+    const snbt_year_refid = new URL(req.url).searchParams.get('snbt_year_refid');
+    const checkResult = querySchema.safeParse({ name, birth, snbt_year, snbt_year_refid });
 
     if (checkResult.error) {
       return NextResponse.json({ error: { message: "Invalid query", errors: checkResult.error.issues } }, { status: 400 });
@@ -25,6 +27,7 @@ export async function GET(req: NextRequest) {
       .selectFrom("snbt_year as sy")
       .selectAll()
       .where("sy.year", "=", checkResult.data.snbt_year)
+      .where("sy.id", "=", checkResult.data.snbt_year_refid)
       .executeTakeFirst();
     const r2 = performance.now();
 
@@ -37,6 +40,7 @@ export async function GET(req: NextRequest) {
       .where("sd.name", "like", checkResult.data.name)
       .where("sd.date_of_birth", "=", birth)
       .where("sd.snbt_year", "=", checkResult.data.snbt_year)
+      .where("sd.snbt_year_ref", "=", checkResult.data.snbt_year_refid)
       .executeTakeFirst();
     const r3 = performance.now();
 
