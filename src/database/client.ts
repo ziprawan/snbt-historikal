@@ -1,7 +1,11 @@
 import { DB } from "@/types/database/db";
 import { Kysely } from "kysely";
-import { SqliteWorkerDialect } from "kysely-sqlite-worker";
+import { Database } from 'bun:sqlite';
+import { BunSqliteDialect } from "kysely-bun-sqlite";
 
-const dialect = new SqliteWorkerDialect({ source: "data.db" });
-
+const dialect = new BunSqliteDialect({
+    database: new Database('data.db', {
+        readonly: true,
+    }),
+});
 export const db = new Kysely<DB>({ dialect });

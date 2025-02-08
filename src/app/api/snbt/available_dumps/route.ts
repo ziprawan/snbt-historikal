@@ -9,7 +9,7 @@ export async function GET() {
 
     return NextResponse.json({
       data: {
-        available_dumps: availableYears.map((data) => ({ year: data.year, dumped_at: data.dumped_at })),
+        available_dumps: availableYears.map((data) => ({ year: data.year, dumped_at: data.dumped_at, id: data.id })),
         query_time_ms: r2 - r1,
       },
     });
